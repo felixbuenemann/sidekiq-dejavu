@@ -56,6 +56,8 @@ Interval can be specified in seconds or as a cron expression, including vixie cr
 
 If a job fails or takes longer than an interval it will be retried at the next interval. In most cases you should set jour jobs to `retry: false` to keep Sidekiq's retries from competing with the scheduled jobs.
 
+You also need to set all options for the job, because currently a workers `sidekiq_options` are ignored. The minium required options for a schedule are `interval` and `class`. The same worker can be scheduled multiple times by using different schedule names (keys) in the config.
+
 ## Contributing
 
 1. Fork it ( https://github.com/felixbuenemann/sidekiq-dejavu/fork )
