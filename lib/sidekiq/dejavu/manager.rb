@@ -21,7 +21,9 @@ module Sidekiq
           item = job.item
           name = item['schedule']
           schedule_options = schedules[name]
+          schedule_options['args'] = Array(schedule_options['args'])
           item_options = item.select { |k,v| schedule_options.keys.include? k }
+
           if item_options != schedule_options
             Sidekiq.logger.info "Clearing schedule #{name} (config changed)."
             job.delete
