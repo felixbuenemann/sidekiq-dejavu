@@ -54,6 +54,8 @@ You can configure schedule tasks in your config/sidekiq.yml:
 
 Interval can be specified in seconds or as a cron expression, including vixie cron syntax.
 
+If a job fails or takes longer than an interval it will be retried at the next interval. In most cases you should set jour jobs to `retry: false` to keep Sidekiq's retries from competing with the scheduled jobs.
+
 ## Contributing
 
 1. Fork it ( https://github.com/felixbuenemann/sidekiq-dejavu/fork )
