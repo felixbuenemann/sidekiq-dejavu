@@ -11,9 +11,9 @@ Sidekiq.configure_server do |config|
   config.on(:startup) do
     schedules = config.options.fetch(:schedule, {})
     if schedules.empty?
-      Sidekiq.logger.warn "SidekiqDejavu: No schedule found."
+      Sidekiq.logger.warn "Sidekiq::Dejavu: No schedule found."
     else
-      Sidekiq.logger.info "SidekiqDejavu: Loading schedules #{schedules.keys.join ','}."
+      Sidekiq.logger.info "Sidekiq::Dejavu: Loading schedules #{schedules.keys.join ','}."
       Sidekiq::Dejavu::Manager.new(schedules).reload_schedule!
     end
   end
