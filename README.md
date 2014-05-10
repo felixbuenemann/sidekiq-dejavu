@@ -9,6 +9,8 @@ Dejavu uses Sidekiq's internal scheduling, like `Sidekiq::Worker.perform_in`
 and `Sidekiq::Worker.perform_at` so it doesn't need its own clock process/thread
 and integrates nicely with Sidekiq without duplicating any functionality.
 
+Scheduled jobs can be controlled through the Scheduled page in the Sidekiq::Web UI.
+
 ## Note
 
 This is **ALPHA** quality code and doesn't yet have any specs, so make sure you test it well.
