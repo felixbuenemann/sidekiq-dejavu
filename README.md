@@ -16,6 +16,16 @@ Scheduled jobs can be controlled through the Scheduled page in the Sidekiq::Web 
 This is **ALPHA** quality code and doesn't yet have any specs, so make sure you test it well.
 Requires Sidekiq 3.0 or later. Compatibility with older versions could probably be added.
 
+## Known Bugs
+
+It's currently possible to have multiple workers from the same schedule running in parallel
+and all re-scheduling themselves. This is because jobs get re-scheduled if there is no existing
+schedule with the same name, but only the scheduled jobs queue is inspected.
+Depending on the intervals used it is possible that the job gets scheduled and run again before
+the other jobs can see the scheduled job, so they get re-scheduled as well.
+To avoid this bug don't schedule long running tasks at very short intervals or ensure uniqueness
+of running jobs using the sidekiq-unique-jobs gem.
+
 ## Installation
 
 Add this line to your application's Gemfile:
