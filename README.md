@@ -18,13 +18,12 @@ Requires Sidekiq 3.0 or later. Compatibility with older versions could probably 
 
 ## Known Bugs
 
-It's currently possible to have multiple workers from the same schedule running in parallel
+- Incompatible with sidekiq-unique-jobs (jobs don't get scheduled)
+- It's currently possible to have multiple workers from the same schedule running in parallel
 and all re-scheduling themselves. This is because jobs get re-scheduled if there is no existing
 schedule with the same name, but only the scheduled jobs queue is inspected.
 Depending on the intervals used it is possible that the job gets scheduled and run again before
 the other jobs can see the scheduled job, so they get re-scheduled as well.
-To avoid this bug don't schedule long running tasks at very short intervals or ensure uniqueness
-of running jobs using the sidekiq-unique-jobs gem.
 
 ## Installation
 
