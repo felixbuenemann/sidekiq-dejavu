@@ -13,8 +13,11 @@ Scheduled jobs can be controlled through the Scheduled page in the Sidekiq::Web 
 
 ## Note
 
-This is **ALPHA** quality code and doesn't yet have any specs, so make sure you test it well.
+This is **BETA** quality code and doesn't yet have any specs, so make sure you test it well.
 Requires Sidekiq 3.0 or later. Compatibility with older versions could probably be added.
+
+Warning aside, this code has run in production since October 2014 and has scheduled several
+million jobs without any issues. So if you want a very lightweight scheduler give it a shot.
 
 ## Known Bugs
 
