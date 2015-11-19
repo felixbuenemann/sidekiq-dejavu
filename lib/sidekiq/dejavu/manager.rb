@@ -3,15 +3,20 @@ module Sidekiq
     class Manager
       include Helper
 
-      attr_reader :schedules
+      attr_accessor :schedules, :scheduled_set
 
-      def initialize(schedules)
+      def initialize(schedules = {}, scheduled_set = Sidekiq::ScheduledSet.new)
         @schedules = schedules
+        @scheduled_set = scheduled_set
       end
 
       def reload_schedule!
         clear_changed_schedules
         add_new_schedules
+      end
+
+      def scheduled_jobs
+        scheduled_set.select { |job| job.item.has_key? 'schedule' }
       end
 
       private
@@ -20,6 +25,13 @@ module Sidekiq
         scheduled_jobs.each do |job|
           item = job.item
           name = item['schedule']
+
+          unless schedules.has_key? name
+            Sidekiq.logger.info "Clearing schedule #{name} (not listed in config)."
+            job.delete
+            next
+          end
+
           schedule_options = schedules[name]
           schedule_options['args'] = Array(schedule_options['args'])
           item_options = item.select { |k,v| schedule_options.keys.include? k }
@@ -28,6 +40,7 @@ module Sidekiq
             Sidekiq.logger.info "Clearing schedule #{name} (config changed)."
             job.delete
           else
+            # Schedule unchanged, skip in add_new_schedules
             schedules.delete(name)
           end
         end
@@ -43,10 +56,6 @@ module Sidekiq
           Sidekiq.logger.info "Scheduling #{name} for first run at #{Time.at first_run}."
           Sidekiq::Client.push(job)
         end
-      end
-
-      def scheduled_jobs
-        Sidekiq::ScheduledSet.new.select { |job| schedules.keys.include? job.item['schedule'] }
       end
     end
   end
