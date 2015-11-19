@@ -51,25 +51,27 @@ Or install it yourself as:
 
 You can configure schedule tasks in your config/sidekiq.yml:
 
-    :schedule:
-      hello_world:
-        interval: 10
-        class: HelloWorldWorker
-        queue: hello
-        retry: false
-        backtrace: false
-        args:
-          - Hello
-          - World
-      cleanup:
-        interval: '30 5 * * *' # every day at 5:30
-        class: HelloWorldWorker
-        queue: hello
-        retry: false
-        backtrace: false
-        args:
-          - Hello
-          - World
+```yaml
+:schedule:
+  hello_world:
+    interval: 10
+    class: HelloWorldWorker
+    queue: hello
+    retry: false
+    backtrace: false
+    args:
+      - Hello
+      - World
+  cleanup:
+    interval: '30 5 * * *' # every day at 5:30
+    class: HelloWorldWorker
+    queue: hello
+    retry: false
+    backtrace: false
+    args:
+      - Hello
+      - World
+```
 
 Interval can be specified in seconds or as a cron expression, including vixie cron syntax.
 
