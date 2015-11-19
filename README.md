@@ -1,5 +1,8 @@
 # Sidekiq::Dejavu
 
+[![Gem Version](https://badge.fury.io/rb/sidekiq-dejavu.svg)](https://rubygems.org/gems/sidekiq-dejavu)
+[![Build Status](https://travis-ci.org/felixbuenemann/sidekiq-dejavu.svg)](https://travis-ci.org/felixbuenemann/sidekiq-dejavu)
+
 Dejavu is a clockless scheduler that uses Sidekiq's built-in scheduling.
 
 Most scheduling solutions for Sidekiq require either a separate cron like process
