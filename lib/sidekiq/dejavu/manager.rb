@@ -39,15 +39,16 @@ module Sidekiq
           if item_options != schedule_options
             Sidekiq.logger.info "Clearing schedule #{name} (config changed)."
             job.delete
-          else
-            # Schedule unchanged, skip in add_new_schedules
-            schedules.delete(name)
           end
         end
       end
 
       def add_new_schedules
+        existing = scheduled_jobs.map { |job| job.item['schedule'] }
+
         schedules.each do |name, options|
+          next if existing.include? name
+
           args = Array(options['args'])
           interval = options['interval']
           first_run = next_randomized_timestamp(interval)
