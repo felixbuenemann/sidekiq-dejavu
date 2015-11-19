@@ -72,6 +72,8 @@ If a job fails or takes longer than an interval it will be retried at the next i
 
 You also need to set all options for the job, because currently a workers `sidekiq_options` are ignored. The minium required options for a schedule are `interval` and `class`. The same worker can be scheduled multiple times by using different schedule names (keys) in the config.
 
+Note that by default sidekiq polls scheduled jobs roughly every 15 seconds, which means in order to run jobs at shorter intervals youd'd have to tune `config.average_scheduled_poll_interval` to a lower value.
+
 ## Contributing
 
 1. Fork it ( https://github.com/felixbuenemann/sidekiq-dejavu/fork )
