@@ -27,6 +27,8 @@ and all re-scheduling themselves. This is because jobs get re-scheduled if there
 schedule with the same name, but only the scheduled jobs queue is inspected.
 Depending on the intervals used it is possible that the job gets scheduled and run again before
 the other jobs can see the scheduled job, so they get re-scheduled as well.
+- It's possible for jobs to be scheduled multiple times, if multiple processes load the same schedule
+at the same time due to missing locks around loading the schedule.
 
 ## Installation
 
