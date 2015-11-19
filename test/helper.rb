@@ -1,10 +1,15 @@
+# disable minitest/parallel threads
+ENV["N"] = "0"
+
+require "bundler/setup"
+
 require "sidekiq"
 require "sidekiq/api"
 require "sidekiq/testing"
 
 require "minitest/autorun"
 require "yaml"
-require "pry"
+require "pry" unless ENV['CI']
 
 require "sidekiq/dejavu"
 
