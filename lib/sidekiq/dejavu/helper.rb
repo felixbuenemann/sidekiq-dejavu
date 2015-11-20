@@ -10,7 +10,8 @@ module Sidekiq
       end
 
       def next_randomized_timestamp(interval, time = Time.now)
-        CronParser.new(interval).next(time).to_f
+        diff = CronParser.new(interval).next(time).to_f - time.to_f
+        time.to_f + Random.rand(diff)
       rescue ArgumentError
         time.to_f + Random.rand(interval.to_f)
       end
