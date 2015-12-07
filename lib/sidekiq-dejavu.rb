@@ -1,3 +1,4 @@
+require "sidekiq"
 require "sidekiq/dejavu"
 
 Sidekiq.configure_server do |config|
