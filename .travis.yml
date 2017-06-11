@@ -7,12 +7,15 @@ rvm:
   - 2.1
   - 2.0.0
   - 2.2
+  - 2.3
+  - 2.4
   - jruby
   - jruby-head
   - rbx-2
 env:
   - SIDEKIQ='~> 3.5'
   - SIDEKIQ='~> 4.0'
+  - SIDEKIQ='~> 5.0'
 matrix:
   allow_failures:
     - rvm: rbx-2
