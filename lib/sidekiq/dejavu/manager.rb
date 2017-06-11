@@ -51,7 +51,7 @@ module Sidekiq
 
           args = Array(options['args'])
           interval = options['interval']
-          first_run = next_randomized_timestamp(interval)
+          first_run = valid_cron?(interval) ? next_timestamp(interval) : next_randomized_timestamp(interval)
           job = options.merge('args' => args, 'schedule' => name, 'at' => first_run)
 
           Sidekiq.logger.info "Scheduling #{name} for first run at #{Time.at first_run}."

@@ -7,6 +7,22 @@ class TestHelper < Sidekiq::Dejavu::Test
     @time ||= Time.now
   end
 
+  def test_valid_cron_with_valid_cron
+    interval = '* * * * *'
+    assert_equal true, valid_cron?(interval)
+  end
+
+  def test_valid_cron_with_interval
+    [10, 10.0, '10', '10.0'].each do |interval|
+      assert_equal false, valid_cron?(interval)
+    end
+  end
+
+  def test_valid_cron_with_garbage
+    interval = 'garbage'
+    assert_equal false, valid_cron?(interval)
+  end
+
   def test_next_timestamp_cron
     interval = '* * * * *'
     expected = time.to_f + (60 - time.to_f % 60)

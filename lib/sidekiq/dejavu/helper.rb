@@ -3,6 +3,13 @@ require 'parse-cron'
 module Sidekiq
   module Dejavu
     module Helper
+      def valid_cron?(interval)
+        CronParser.new(interval)
+        true
+      rescue ArgumentError
+        false
+      end
+
       def next_timestamp(interval, time = Time.now)
         CronParser.new(interval).next(time).to_f
       rescue ArgumentError
