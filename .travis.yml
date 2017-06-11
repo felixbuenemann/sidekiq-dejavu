@@ -4,24 +4,33 @@ cache: bundler
 services:
   - redis-server
 rvm:
-  - 2.1
   - 2.0.0
-  - 2.2
-  - 2.3
-  - 2.4
-  - jruby
-  - jruby-head
-  - rbx-2
+  - 2.1.10
+  - 2.2.7
+  - 2.3.4
+  - 2.4.1
+  - jruby-1.7.26
+  - jruby-9.1.9.0
+  - rbx-2.2.7
 env:
   - SIDEKIQ='~> 3.5'
   - SIDEKIQ='~> 4.0'
   - SIDEKIQ='~> 5.0'
 matrix:
   exclude:
-    - rvm: 2.1
-      env: SIDEKIQ='~> 5.0'
     - rvm: 2.0.0
       env: SIDEKIQ='~> 5.0'
-  allow_failures:
-    - rvm: rbx-2
-    - rvm: jruby-head
+    - rvm: 2.1.10
+      env: SIDEKIQ='~> 5.0'
+    - rvm: rbx-2.2.7
+      env: SIDEKIQ='~> 4.0'
+    - rvm: rbx-2.2.7
+      env: SIDEKIQ='~> 5.0'
+    - rvm: jruby-1.7.26
+      env: SIDEKIQ='~> 4.0'
+    - rvm: jruby-1.7.26
+      env: SIDEKIQ='~> 5.0'
+    - rvm: jruby-9.1.9.0
+      env: SIDEKIQ='~> 3.5'
+    - rvm: jruby-9.1.9.0
+      env: SIDEKIQ='~> 4.0'
