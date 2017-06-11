@@ -17,6 +17,11 @@ env:
   - SIDEKIQ='~> 4.0'
   - SIDEKIQ='~> 5.0'
 matrix:
+  exclude:
+    - rvm: 2.1
+      env: SIDEKIQ='~> 5.0'
+    - rvm: 2.0.0
+      env: SIDEKIQ='~> 5.0'
   allow_failures:
     - rvm: rbx-2
     - rvm: jruby-head
