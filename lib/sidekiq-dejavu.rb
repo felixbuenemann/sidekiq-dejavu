@@ -7,7 +7,7 @@ Sidekiq.configure_server do |config|
   end
 
   config.on(:startup) do
-    schedules = config.options[:schedule] || {}
+    schedules = (config.respond_to?(:[]) ? config[:schedule] : config.options[:schedule]) || {}
     Sidekiq.logger.debug "Sidekiq::Dejavu: schedules: #{schedules.inspect}"
     if schedules.empty?
       Sidekiq.logger.warn "Sidekiq::Dejavu: No schedule found."

@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "sidekiq", ">= 3", "< 6"
+  spec.add_dependency "sidekiq", ">= 3", "< 8"
   spec.add_dependency "parse-cron", "~> 0.1.4"
-  spec.add_development_dependency "bundler", "~> 1.6"
+  spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
 end

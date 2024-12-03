@@ -6,7 +6,7 @@ module Sidekiq
       attr_accessor :schedules, :scheduled_set
 
       def initialize(schedules = {}, scheduled_set = Sidekiq::ScheduledSet.new)
-        @schedules = schedules
+        @schedules = deep_transform_keys_to_strings(schedules)
         @scheduled_set = scheduled_set
       end
 
@@ -20,6 +20,14 @@ module Sidekiq
       end
 
       private
+
+      def deep_transform_keys_to_strings(hash)
+        hash.each_with_object({}) do |(key, value), obj|
+          new_key = key.to_s
+          new_value = value.is_a?(Hash) ? deep_transform_keys_to_strings(value) : value
+          obj[new_key] = new_value
+        end
+      end
 
       def clear_changed_schedules
         scheduled_jobs.each do |job|
