@@ -28,7 +28,7 @@ Sidekiq::Testing.server_middleware do |chain|
   chain.add Sidekiq::Dejavu::Middleware::Server::Scheduler
 end
 
-class Sidekiq::Dejavu::Test < MiniTest::Test
+class Sidekiq::Dejavu::Test < Minitest::Test
   attr_reader :log, :scheduled_set
 
   def setup
